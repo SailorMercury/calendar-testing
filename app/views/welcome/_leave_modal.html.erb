@@ -1,0 +1,41 @@
+<div id="leave_modal" class="modal hide fade in">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New leave</h3>
+  </div>
+  <div class="modal-body">
+    Please enter leave.
+     <%= form_for @new_leave do |f| %>
+        <div class="field">
+          <%= f.label :reason %><br />
+          <%= f.text_field :reason %>
+        </div>
+        <div class="field">
+          <%= f.label :start_date %><br />
+          <%= f.text_field :start_date, :id => "datepicker_start"%>
+        </div>
+        <div class="field">
+          <%= f.label :end_date %><br />
+          <%= f.text_field :end_date, :id => "datepicker_end" %>
+        </div>
+        <div class="field">
+          <%= f.label :user_id %><br />
+          <%= f.number_field :user_id %>
+        </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose" >Cancel</a>
+    <%= f.submit "Submit", :class=>"btn primary"%>
+    <% end %>
+  </div>
+</div>
+<script>  
+	$(function() {
+		$( "#datepicker_start" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#datepicker_end" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $('.myclose').click(function(){
+      $('#leave_modal').modal('hide');
+    });
+	});
+</script>
+

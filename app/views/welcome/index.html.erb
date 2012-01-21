@@ -1,0 +1,32 @@
+
+<% if user_signed_in? %>
+  Signed in as <%= current_user.email %>. Not you?
+  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+<% end %>
+
+<button class = "btn primary small" data-keyboard="true" data-backdrop="true" data-controls-modal="leave_modal">leave</button>
+<%= render 'leave_modal' %>
+
+<div id="calendar">
+  <H1>Calendar</H1>
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>
+    <%= h @date.strftime("%B %Y") %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
+  </h2>
+  <%= calendar_for @leaves, :year => @date.year, :month => @date.month do |calendar| %>
+    <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')%>
+    <%= calendar.day(:day_method => :start_date) do |date, calendar| %>
+      <%= date.day %>
+      <ul>
+        <% for leave in calendar %>
+          <li><span class="label important"><%=leave.user.email%></span></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+
+

@@ -1,0 +1,66 @@
+<h1>Listing leaves</h1>
+
+<table class ="bordered-table">
+  <tr>
+    <th>Reason</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @leaves.each do |leafe| %>
+  <tr>
+    <td><%= leafe.reason %></td>
+    <td><%= leafe.start_date %></td>
+    <td><%= leafe.end_date %></td>
+    <td><%= leafe.user_id %></td>
+    <td><%= link_to 'Show', leafe %></td>
+    <td><%= link_to 'Edit', edit_leafe_path(leafe) %></td>
+    <td><%= link_to 'Destroy', leafe, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Leave', new_leafe_path %>
+
+<hr>
+<div id="calendar2">
+  <H1>Calendar2</H1>
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>
+    <%= h @date.strftime("%B %Y") %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
+  </h2>
+  <%i=1%>
+  <table class ="bordered-table">
+    <tr>
+      <td>&nbsp</td>
+      <% while i != @date.end_of_month.day+1 %>
+        <td><%= i %></td>
+        <% i = i + 1%>
+      <% end %>
+      <%i=1%>
+    <%User.all.each do |u|%>
+      </tr>
+        <td><%= u.email %></td>
+        <% while i != @date.end_of_month.day+1 %>
+          <% if u.leave.first.start_date.year == @date.year && u.leave.first.start_date.month == @date.month && u.leave.first.start_date.day == i %>
+            <td bgcolor="#FF0000"></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% i = i + 1%>
+        <% end %>
+      <tr>
+    <%end%>
+    </tr>
+  </table>
+</div>
+
+
+

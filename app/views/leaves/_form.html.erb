@@ -1,0 +1,42 @@
+<%= form_for(@leave) do |f| %>
+  <% if @leave.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@leave.errors.count, "error") %> prohibited this leafe from being saved:</h2>
+
+      <ul>
+      <% @leave.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :reason %><br />
+    <%= f.text_field :reason %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.text_field :start_date, :id => "datepicker_start" %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.text_field :end_date, :id => "datepicker_end" %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>
+	$(function() {
+		$( "#datepicker_start" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+  $(function() {
+		$( "#datepicker_end" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+</script>
